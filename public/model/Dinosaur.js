@@ -7,7 +7,6 @@ export default class Dinosaur {
     this.where = where;
     this.when = when;
     this.fact = fact;
-
     this.heightRatio = "";
     this.weightRatio = "";
     this.dietDescription = "";

@@ -24,7 +24,7 @@ function getDino(data, human) {
         dinosaur.compareWeight(human);
         dinosaur.compareDiet(human);
         return dinosaur;
-    })
+    });
 }
 
 // Create Human data from form
@@ -43,7 +43,7 @@ function getHuman() {
         weight: Number(weight.value) || undefined,
         diet: dietEl.value || "",
         height: _feet * 12 + _inches
-    }
+    };
 }
 
 // Generate Tiles for each Dino in Array
@@ -78,7 +78,7 @@ function generateTile(list, human) {
             default:
                 x.title = `${x.species} lived in ${x.where}.`;
         }
-    })
+    });
 }
 
 // Add tiles to DOM
@@ -89,8 +89,7 @@ function generateGrid(human, dinos) {
     list.push(human);
     list.push(...dinos.slice(4));
 
-
-    const tiles = list.map(({ species, name, weight, height, diet, where, when, fact, title }) => {
+    const tiles = list.map(({ species, name, fact, title }) => {
         const imageSrc = `images/${species?.toLowerCase() || "human"}.png`;
         const factStyle = fact ? "" : "display: none";
 
@@ -197,13 +196,13 @@ function handleStartOver() {
 }
 
 // Use IIFE to get human data from form
-(async function () {
+(async function() {
     data = await readFile();
 
     const compareBtn = document.getElementById("btn");
     const startOver = document.getElementById("start-over");
     // On button click, prepare and display infographic
-    compareBtn.addEventListener("click", handleSubmit)
+    compareBtn.addEventListener("click", handleSubmit);
 
-    startOver.addEventListener("click", handleStartOver)
+    startOver.addEventListener("click", handleStartOver);
 })();
