@@ -17,7 +17,7 @@ function readFile(path = "dino.json") {
 
 // Create Dino Objects
 function getDino(data, human) {
-    return data['Dinos'].map((x) => {
+    return data["Dinos"].map((x) => {
         const { species, weight, height, diet, where, when, fact } = x;
         const dinosaur = new Dinosaur(species, weight, height, diet, where, when, fact);
         dinosaur.compareHeight(human);
@@ -31,17 +31,17 @@ function getDino(data, human) {
 function getHuman() {
     const dietEl = document.querySelector("select");
 
-    const inputEl = document.querySelectorAll('input');
+    const inputEl = document.querySelectorAll("input");
     const [name, feet, inches, weight] = inputEl;
 
     const _feet = Number(feet.value) || undefined;
     const _inches = Number(inches.value) || undefined;
     return {
-        name: name.value || '',
+        name: name.value || "",
         feet: _feet,
         inches: _inches,
         weight: Number(weight.value) || undefined,
-        diet: dietEl.value || '',
+        diet: dietEl.value || "",
         height: _feet * 12 + _inches
     }
 }
@@ -92,27 +92,27 @@ function generateGrid(human, dinos) {
 
     const tiles = list.map(({ species, name, weight, height, diet, where, when, fact, title }) => {
         const imageSrc = `images/${species?.toLowerCase() || "human"}.png`;
-        const factStyle = fact ? '' : 'display: none';
+        const factStyle = fact ? "" : "display: none";
 
         return `
       <div class="grid-item">
         <h3>${species || name}</h3>
         <img src="${imageSrc}">
-        <p style="${factStyle}">${title || ''}</p>
+        <p style="${factStyle}">${title || ""}</p>
       </div>
     `;
-    }).join('');
+    }).join("");
 
     grid.innerHTML = tiles;
 }
 
 // Remove form from screen
 function clear() {
-    const form = document.querySelector('form');
+    const form = document.querySelector("form");
     if (form) form.reset();
 
-    const validation = document.querySelector('.errors');
-    if (validation) validation.innerHTML = '';
+    const validation = document.querySelector(".errors");
+    if (validation) validation.innerHTML = "";
 
     const container = document.querySelector("#grid");
     container.innerHTML = "";
@@ -127,15 +127,15 @@ function validateForm(person) {
     const { name: n, feet: f, inches: i, weight: w } = person;
 
     if (!n.trim() && !f && !i && !w) {
-        errorEl.innerHTML = `<p>Please complete all fields</p>`;
+        errorEl.innerHTML = "<p>Please complete all fields</p>";
     } else if (!n.trim()) {
-        errorEl.innerHTML = `<p>Please enter your Name</p>`;
+        errorEl.innerHTML = "<p>Please enter your Name</p>";
     } else if (!f) {
-        errorEl.innerHTML = `<p>Please enter your Feet</p>`;
+        errorEl.innerHTML = "<p>Please enter your Feet</p>";
     } else if (!i) {
-        errorEl.innerHTML = `<p>Please enter your Inches</p>`;
+        errorEl.innerHTML = "<p>Please enter your Inches</p>";
     } else if (!w) {
-        errorEl.innerHTML = `<p>Please enter your Weight</p>`;
+        errorEl.innerHTML = "<p>Please enter your Weight</p>";
     } else {
         invalid = false;
     }
@@ -150,7 +150,7 @@ function hiddenElement(id) {
 
     const el = document.querySelector(id);
     if (el) {
-        el.style.display = 'none';
+        el.style.display = "none";
     }
 }
 
@@ -162,7 +162,7 @@ function displayElement(id, display) {
 
     const el = document.querySelector(id);
     if (el) {
-        el.style.display = display ? display : 'block';
+        el.style.display = display ? display : "block";
     }
 }
 
@@ -178,11 +178,11 @@ function handleSubmit() {
 
         generateTile(dino, human);
         // hide form
-        hiddenElement('#dino-compare');
+        hiddenElement("#dino-compare");
         // display grid
         generateGrid(human, dino);
 
-        displayElement('#start-over', 'flex');
+        displayElement("#start-over", "flex");
     } else {
         // const container = document.querySelector(".errors");
         // container.innerHTML = `<span class="error">Please complete all fields</span>`;
@@ -192,18 +192,18 @@ function handleSubmit() {
 // Start over
 function handleStartOver() {
     clear();
-    hiddenElement('#start-over');
-    displayElement('#dino-compare');
+    hiddenElement("#start-over");
+    displayElement("#dino-compare");
 }
 
 // Use IIFE to get human data from form
 (async function () {
     data = await readFile();
 
-    const compareBtn = document.getElementById('btn');
-    const startOver = document.getElementById('start-over');
+    const compareBtn = document.getElementById("btn");
+    const startOver = document.getElementById("start-over");
     // On button click, prepare and display infographic
-    compareBtn.addEventListener('click', handleSubmit)
+    compareBtn.addEventListener("click", handleSubmit)
 
-    startOver.addEventListener('click', handleStartOver)
+    startOver.addEventListener("click", handleStartOver)
 })();
